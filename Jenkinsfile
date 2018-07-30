@@ -4,6 +4,7 @@ pipeline {
     }
     stages {
         stage ('Parallel UT running')
+        steps{
     parallel (
         "FoxUT" : {
             node ('Dev-Pilot'){
@@ -40,6 +41,8 @@ pipeline {
             }
         }
     )
+    }
+
     }
 
     post {
