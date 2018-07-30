@@ -1,5 +1,5 @@
 pipeline {
-    agent { node { label 'devBuild' } }
+    agent { node { label 'Dev-Pilot' } }
 
     stages {
         stage('Parallel Build') {
