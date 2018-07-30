@@ -2,7 +2,7 @@ pipeline {
     agent { node { label 'devBuild' } }
 
     stages {
-        stage(''Parallel Build) {
+        stage('Parallel Build') {
             steps {
                 parallel (
                     "FoxUT" : {
@@ -15,7 +15,6 @@ pipeline {
 
 
                     "Old Engine" : {
-                        echo 'Running on Dev-Pilot'
                         bat '''@echo off
                         @echo %date% %time%
                         @echo Optimization UT
@@ -23,7 +22,7 @@ pipeline {
                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\OptimizationServer\\Code\\OptimizationUT\\bin\\OptimizationUT.dll"'''
                     } ,
 
-                    "New Engine" ; {
+                    "New Engine" : {
                         bat '''@echo off
                     @echo %date% %time%
                     @echo New Optimization Engine UT
