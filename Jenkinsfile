@@ -46,7 +46,7 @@ pipeline {
         failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'amitbl@britannica-ks.com;Baraku@Britannica-ks.com;amitbl@britannica-ks.com'
+                            http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'Innar@Britannica-ks.com;Baraku@Britannica-ks.com;amitbl@britannica-ks.com'
         }
     }
 }
