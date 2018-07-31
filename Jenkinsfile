@@ -2,7 +2,7 @@ pipeline {
     agent { node { label 'Dev-Pilot' } }
 
     stages {
-        stage('Parallel Build') {
+        stage('Parallel UT running') {
             steps {
                 parallel (
                     "FoxUT" : {
