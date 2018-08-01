@@ -6,16 +6,10 @@ pipeline {
             steps {
                 parallel (
                     "Urgent Cat" : {
-                        bat '''@echo off
-                     @echo %date% %time%
-                    @echo Fox UT
-                    @echo ======
+                        bat '''
                     "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit"'''
                     } 
-
-
-                    
-                    
+                
                 )
             }
         }
