@@ -11,16 +11,10 @@ pipeline {
                     @echo Fox UT
                     @echo ======
                     "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit"'''
-                    } ,
+                    } 
 
 
-                    "Med Cat" : {
-                        bat '''@echo off
-                        @echo %date% %time%
-                        @echo Optimization UT
-                        @echo ===============
-                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Michelle"'''
-                    }                 
+                    
                     
                 )
             }
