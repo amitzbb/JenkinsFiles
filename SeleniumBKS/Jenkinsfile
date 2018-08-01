@@ -10,7 +10,7 @@ pipeline {
                      @echo %date% %time%
                     @echo Fox UT
                     @echo ======
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\WorkSpace\Fox8\Dev\FoxTestingFrameworkDev\BusinessScenarios\bin\Debug\BusinessScenarios.dll --where "Category==Amit"'''
+                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit"'''
                     } ,
 
 
@@ -19,7 +19,7 @@ pipeline {
                         @echo %date% %time%
                         @echo Optimization UT
                         @echo ===============
-                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\WorkSpace\Fox8\Dev\FoxTestingFrameworkDev\BusinessScenarios\bin\Debug\BusinessScenarios.dll --where "Category==Michelle"'''
+                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Michelle"'''
                     }                 
                     
                 )
