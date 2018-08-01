@@ -13,6 +13,9 @@ pipeline {
                 )
             }
         }
+        stage ('Build test report') {
+            junit allowEmptyResults: true, testResults: '**/TestResult/*xml'
+        }
 
     }
 
