@@ -16,7 +16,7 @@ pipeline {
                         @echo %date% %time%
                         @echo Fox UT
                         @echo ======
-                        "C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe" D:\WorkSpace\Automation1\Automation1\bin\Debug\Automation1.dll --where "Category==Urgent""'''
+                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Automation1\\Automation1\\bin\\Debug\\Automation1.dll --where "Category==Urgent""'''
 
             }
         },
@@ -31,7 +31,7 @@ pipeline {
                             @echo %date% %time%
                             @echo Fox UT
                             @echo ======
-                            "C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe" D:\WorkSpace\Automation1\Automation1\bin\Debug\Automation1.dll --where "Category==Med""'''
+                            "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Automation1\\Automation1\\bin\\Debug\\Automation1.dll --where "Category==Med""'''
 
             }
         } 
