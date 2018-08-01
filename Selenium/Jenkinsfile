@@ -2,10 +2,10 @@ pipeline {
     agent { node { label 'AmitPC' } }
 
     stages {
-        stage('Parallel UT running') {
+        stage('Parallel Selnium tests running') {
             steps {
                 parallel (
-                    "FoxUT" : {
+                    "Test1" : {
                         bat '''@echo off
                      @echo %date% %time%
                     @echo Fox UT
@@ -14,7 +14,7 @@ pipeline {
                     } ,
 
 
-                    "Old Engine" : {
+                    "Test2" : {
                         bat '''@echo off
                         @echo %date% %time%
                         @echo Optimization UT
