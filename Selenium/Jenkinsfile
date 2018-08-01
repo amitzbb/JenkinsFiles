@@ -5,23 +5,16 @@ pipeline {
         stage('Parallel Selnium tests running') {
             steps {
                 parallel (
-                    "Urgent Cat" : {
-                        bat '''@echo off
-                     @echo %date% %time%
-                    @echo Fox UT
-                    @echo ======
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Automation1\\Automation1\\bin\\Debug\\Automation1.dll --where "Category==Urgent"'''
+                    "Amit Cat" : {
+                        bat '''
+                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit"'''
                     } ,
 
-
-                    "Med Cat" : {
-                        bat '''@echo off
-                        @echo %date% %time%
-                        @echo Optimization UT
-                        @echo ===============
-                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Automation1\\Automation1\\bin\\Debug\\Automation1.dll --where "Category==Med"'''
-                    }                 
-                    
+                    "Michelle Cat" : {
+                        bat '''
+                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Michelle"'''
+                    } 
+                
                 )
             }
         }
