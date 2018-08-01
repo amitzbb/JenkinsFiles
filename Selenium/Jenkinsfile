@@ -20,15 +20,7 @@ pipeline {
                         @echo Optimization UT
                         @echo ===============
                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Automation1\\Automation1\\bin\\Debug\\Automation1.dll --where "Category==Med"'''
-                    } ,
-
-                    "New Engine" : {
-                        bat '''@echo off
-                    @echo %date% %time%
-                    @echo New Optimization Engine UT
-                    @echo ==========================
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Automation1\\Automation1\\bin\\Debug\\Automation1.dll --where "Category==Med"'''
-                    } 
+                    }                 
                     
                 )
             }
