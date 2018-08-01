@@ -5,7 +5,7 @@ pipeline {
         stage('Parallel Selnium tests running') {
             steps {
                 parallel (
-                    "Test1" : {
+                    "Urgent Cat" : {
                         bat '''@echo off
                      @echo %date% %time%
                     @echo Fox UT
@@ -14,7 +14,7 @@ pipeline {
                     } ,
 
 
-                    "Test2" : {
+                    "Med Cat" : {
                         bat '''@echo off
                         @echo %date% %time%
                         @echo Optimization UT
