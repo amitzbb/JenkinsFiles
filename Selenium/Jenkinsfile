@@ -1,0 +1,59 @@
+pipeline {
+    agent {
+        'Dev-Pilot'
+    }
+    stages {
+        stage ('Parallel UT running')
+    parallel (
+        "FoxUT" : {
+            node ('AmitPC'){
+                echo 'Running on Dev-Pilot'
+                bat '''@echo off
+                    @echo %date% %time%
+                    @echo Fox UT
+                    @echo ======
+                    "@echo off
+                        @echo %date% %time%
+                        @echo Fox UT
+                        @echo ======
+                        "C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe" D:\WorkSpace\Automation1\Automation1\bin\Debug\Automation1.dll --where "Category==Urgent""'''
+
+            }
+        },
+        "Old Engine" : {
+            node ('AmitPC'){
+                echo 'Running on Dev-Pilot'
+                bat '''@echo off
+                        @echo %date% %time%
+                        @echo Optimization UT
+                        @echo ===============
+                        "@echo off
+                            @echo %date% %time%
+                            @echo Fox UT
+                            @echo ======
+                            "C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe" D:\WorkSpace\Automation1\Automation1\bin\Debug\Automation1.dll --where "Category==Med""'''
+
+            }
+        } 
+    )
+    }
+
+    post {
+
+        success {
+            emailext body: '''$DEFAULT_CONTENT
+                            The site can be reached at:
+                            http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'BKSR&D@britannica-ks.com;Innar@britannica-ks.com'
+        }
+
+        failure {
+            emailext body: '''$DEFAULT_CONTENT
+                            The site can be reached at:
+                            http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'BKSR&D@britannica-ks.com;Innar@britannica-ks.com'
+        }
+
+    }
+
+
+    
+}
