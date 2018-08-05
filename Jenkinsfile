@@ -10,7 +10,7 @@ pipeline {
                      @echo %date% %time%
                     @echo Fox UT
                     @echo ======
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\Code\\FoxUT\\bin\\Release\\FoxUT.dll"'''
+                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\Code\\FoxUT\\bin\\Release\\FoxUT.dll --work:"C:\\Jenkins\\workspace\\FoxUT\\Fox\\TestATestResult.xml"''' 
                     } ,
 
 
@@ -19,7 +19,7 @@ pipeline {
                         @echo %date% %time%
                         @echo Optimization UT
                         @echo ===============
-                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\OptimizationServer\\Code\\OptimizationUT\\bin\\OptimizationUT.dll"'''
+                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\OptimizationServer\\Code\\OptimizationUT\\bin\\OptimizationUT.dll --work:"C:\\Jenkins\\workspace\\OldEngine\\TestA\\TestATestResult.xml"'''
                     } ,
 
                     "New Engine" : {
@@ -27,7 +27,7 @@ pipeline {
                     @echo %date% %time%
                     @echo New Optimization Engine UT
                     @echo ==========================
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\Optimization\\SchedulerEngine\\UnitTests\\bin\\UnitTests.dll"'''
+                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\Optimization\\SchedulerEngine\\UnitTests\\bin\\UnitTests.dll --work:"C:\\Jenkins\\workspace\\FoxUT\\NewEngine\\TestATestResult.xml"'''
                     } 
                     
                 )
