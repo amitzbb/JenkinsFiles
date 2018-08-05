@@ -10,7 +10,7 @@ pipeline {
                      @echo %date% %time%
                     @echo Fox UT
                     @echo ======
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" --test=BusinessScenarios.Administration  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll /out:D:\\Jenkins\\workspace\\SeleniumByClass\\TestA\\TestATestResult.txt
+                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" --test=BusinessScenarios.Administration  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --work:"D:\\Jenkins\\workspace\\SeleniumByClass\\TestA\\TestATestResult.xml"
 "'''
                     } ,
 
@@ -20,7 +20,7 @@ pipeline {
                         @echo %date% %time%
                         @echo Optimization UT
                         @echo ===============
-                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" --test=BusinessScenarios.JTO  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll /out:D:\\Jenkins\\workspace\\SeleniumByClass\\TestB\\TestATestResult.txt
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" --test=BusinessScenarios.JTO  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --work:"D:\\Jenkins\\workspace\\SeleniumByClass\\TestB\\TestATestResult.xml"
 "'''
                     }                 
                     
