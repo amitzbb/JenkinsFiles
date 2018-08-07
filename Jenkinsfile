@@ -10,7 +10,7 @@ pipeline {
                      @echo %date% %time%
                     @echo Fox UT
                     @echo ======
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\Code\\FoxUT\\bin\\Release\\FoxUT.dll" --work:"C:\\FoxUT\\FoxUT\\TestATestResult.xml"''' 
+                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxUT\\bin\\FoxUT.dll" --work:"C:\\FoxUT\\FoxUT\\TestATestResult.xml"''' 
                     } ,
 
 
@@ -19,7 +19,7 @@ pipeline {
                         @echo %date% %time%
                         @echo Optimization UT
                         @echo ===============
-                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\OptimizationServer\\Code\\OptimizationUT\\bin\\OptimizationUT.dll" --work:"C:\\FoxUT\\OldEngine\\TestATestResult.xml"'''
+                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\OptimizationServer\\Code\\OptimizationUT\\bin\\OptimizationUT.dll" --work:"C:\\FoxUT\\OldEngine\\TestATestResult.xml"'''
                     } ,
 
                     "New Engine" : {
@@ -27,7 +27,7 @@ pipeline {
                     @echo %date% %time%
                     @echo New Optimization Engine UT
                     @echo ==========================
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master.I-BRITANNICA\\Fox8\\Fox8\\Dev\\Optimization\\SchedulerEngine\\UnitTests\\bin\\UnitTests.dll" --work:"C:\\FoxUT\\NewEngine\\TestATestResult.xml"'''
+                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Optimization\\SchedulerEngine\\UnitTests\\bin\\UnitTests.dll" --work:"C:\\FoxUT\\NewEngine\\TestATestResult.xml"'''
                     } 
                     
                 )
