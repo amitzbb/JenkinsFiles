@@ -15,7 +15,9 @@ pipeline {
         }
         stage ('Build test report') {
             steps {
-            junit allowEmptyResults: true, testResults: '**/TestResult/*xml'
+            stage("PublishTestReport"){
+            nunit testResultsPattern: 'TestResult.xml'
+     }
         }
 
         }
