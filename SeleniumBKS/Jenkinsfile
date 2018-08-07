@@ -1,39 +1,38 @@
 pipeline {
     agent { node { label 'AmitPC' } }
-
-    stages {
+     stages {
         stage('Parallel Selnium tests running') {
             steps {
                 parallel (
                     "Urgent Cat" : {
-                        bat '''
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit"'''
-                    } 
-                
+                        bat '''@echo off
+                     @echo %date% %time%
+                    @echo Fox UT
+                    @echo ======
+                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\WorkSpace\Fox8\Dev\FoxTestingFrameworkDev\BusinessScenarios\bin\Debug\BusinessScenarios.dll --where "Category==Amit"'''
+                    } ,
+                     "Med Cat" : {
+                        bat '''@echo off
+                        @echo %date% %time%
+                        @echo Optimization UT
+                        @echo ===============
+                        "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\WorkSpace\Fox8\Dev\FoxTestingFrameworkDev\BusinessScenarios\bin\Debug\BusinessScenarios.dll --where "Category==Michelle"'''
+                    }                 
+                    
                 )
             }
         }
-        stage ('Build test report') {
-            steps {
-                echo "amit"
      }
-        }
-
-        }
-
-    }
-
-    post {
+     post {
         success {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
                             http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'amitbl@britannica-ks.com'
         }
-
-        failure {
+         failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
                             http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'amitbl@britannica-ks.com'
         }
     }
-}
+} 
