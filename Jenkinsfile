@@ -1,5 +1,5 @@
 pipeline {
-    agent { node { label 'Dev-Pilot' } }
+    agent { node { label 'Dev-CI01' } }
 
     stages {
         stage('Parallel UT running') {
