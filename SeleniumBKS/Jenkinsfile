@@ -15,7 +15,7 @@ pipeline {
         }
         stage ('Build test report') {
             steps {
-                nunit testResultsPattern: 'TestResult.xml'
+                echo "amit"
      }
         }
 
