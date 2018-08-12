@@ -19,7 +19,7 @@ pipeline {
      post {
         always {
             nunit testResultsPattern: 'TestResult.xml'
-            archiveArtifacts artifacts: 'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\images', fingerprint: true
+            archiveArtifacts artifacts: 'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images\\*.*', fingerprint: true
 
         }
          failure {
