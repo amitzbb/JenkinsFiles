@@ -1,7 +1,7 @@
 pipeline {
     agent { node { label 'AmitPC' } }
      stages {
-        stage('Parallel Selnium tests running') {
+        stage('Parallel Selnium tests running' , propagate: false) {
             steps {
                 parallel (
                     "Urgent Cat" : {
@@ -23,10 +23,8 @@ pipeline {
         }
      }
      post {
-        success {
-            emailext body: '''$DEFAULT_CONTENT
-                            The site can be reached at:
-                            http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'amitbl@britannica-ks.com'
+        always {
+            nunit testResultsPattern: 'TestResult.xml'
         }
          failure {
             emailext body: '''$DEFAULT_CONTENT
