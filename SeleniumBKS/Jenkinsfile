@@ -19,6 +19,8 @@ pipeline {
      post {
         always {
             nunit testResultsPattern: 'TestResult.xml'
+            archiveArtifacts artifacts: 'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\image', fingerprint: true
+
         }
          failure {
             emailext body: '''$DEFAULT_CONTENT
