@@ -17,7 +17,7 @@ pipeline {
         }
         stage('TestReuslt Report') {
             steps {
-           nunit testResultsPattern: 'TestResult'
+          nunit testResultsPattern: 'TestResult.xml'
 
             }
         }
