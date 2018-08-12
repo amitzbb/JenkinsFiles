@@ -1,7 +1,7 @@
 pipeline {
     agent { node { label 'AmitPC' } }
      stages {
-        stage('Parallel Selnium tests running' , propagate: false) {
+        stage('Parallel Selnium tests running' ) {
             steps {
                 parallel (
                     "Urgent Cat" : {
@@ -13,12 +13,6 @@ pipeline {
                     }                 
                     
                 )
-            }
-        }
-        stage('TestReuslt Report') {
-            steps {
-          nunit testResultsPattern: 'TestResult.xml'
-
             }
         }
      }
