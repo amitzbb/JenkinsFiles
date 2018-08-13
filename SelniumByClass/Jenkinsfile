@@ -1,46 +1,55 @@
 pipeline {
     agent { node { label 'AmitPC' } }
-
-    stages {
-        stage('Parallel Selnium tests running') {
+    parameters {
+       string (name: 'Images' , defaultValue :'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\images' ,description: 'Paramter') 
+    }
+     stages {
+        stage('Getting Code From P4') {
             steps {
-                parallel (
-                    "Urgent Cat" : {
-                        bat '''@echo off
-                     @echo %date% %time%
-                    @echo Fox UT
-                    @echo ======
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" --test=BusinessScenarios.Administration  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --work:"D:\\Jenkins\\workspace\\SeleniumByClass\\TestA\\TestATestResult.xml"
-"'''
-                    } ,
-
-
-                    "Med Cat" : {
-                        bat '''@echo off
-                        @echo %date% %time%
-                        @echo Optimization UT
-                        @echo ===============
-                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" --test=BusinessScenarios.JTO  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --work:"D:\\Jenkins\\workspace\\SeleniumByClass\\TestB\\TestATestResult.xml"
-"'''
-                    }                 
-                    
-                )
+            bat 'p4 sync --parallel=threads=4,batch=8,batchsize=524288,min=1,minsize=589824 //depot/Fox8/Dev/FoxTestingFrameworkDev/...#head'
             }
         }
+        stage('CleanImages Folders') {
+            steps {
+                powershell '''Remove-Item D:\\Jenkins\\workspace\\PipelineTestArch\\Images\\*.* -Force
+                              Remove-Item D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
+            }
+        }
+        stage('Compliling Automation project'){
+            steps {
+                    bat 'D:\\nuget\\nuget.exe restore "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\FoxAutomation.sln"'
+                    bat '''"C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe"  "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\FoxAutomation.sln" /t:Clean /verbosity:minimal'''
+                    bat '''"C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe"  "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\FoxAutomation.sln" /p:Configuration=Debug'''
 
-    }
-
-    post {
-        success {
+            }
+        }
+        stage ('SeleniumTests'){
+            steps {
+                parallel (
+                    "Amit Cat" : {
+                        bat '''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\TestATestResultA.xml"'''
+                    } ,
+                    "Michelle Cat" : {
+                        bat '''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Michelle --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\TestATestResultB.xml"'''
+                    }
+                )
+                
+            }
+        }
+     }
+     post {
+         always {
+            powershell 'Copy-Item -Path D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
+            nunit testResultsPattern: 'TestATestResultA.xml'
+            nunit testResultsPattern: 'TestATestResultB.xml'
+            archiveArtifacts 'Images/*.*'
+        }
+         failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
                             http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'amitbl@britannica-ks.com'
         }
-
-        failure {
-            emailext body: '''$DEFAULT_CONTENT
-                            The site can be reached at:
-                            http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'amitbl@britannica-ks.com'
-        }
     }
-}
+} 
