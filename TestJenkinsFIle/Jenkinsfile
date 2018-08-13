@@ -43,7 +43,7 @@ pipeline {
          always {
             powershell 'Copy-Item -Path D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
             nunit testResultsPattern: 'A/TestResult.xml'
-            nunit testResultsPattern: 'b/TestResult.xml'
+            nunit testResultsPattern: 'B/TestResult.xml'
             archiveArtifacts 'Images/*.*'
         }
          failure {
