@@ -8,7 +8,7 @@ pipeline {
             steps {
                 parallel (
                     "Urgent Cat" : {
-                      archiveArtifacts '<fileset dir="${Images}" casesensitive="yes">   <include name="**/*.jpg"/>   <exclude name="**/*Test*"/> </fileset>'
+                      archiveArtifacts 'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images\\*.*'
                     }                 
                     
                 )
