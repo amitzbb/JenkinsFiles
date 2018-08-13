@@ -28,11 +28,11 @@ pipeline {
                 parallel (
                     "Amit Cat" : {
                         bat '''
-                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\TestATestResultA.xml --where "Category==Amit"'''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\TestATestResultA.xml" --where "Category==Amit"'''
                     } ,
                     "Michelle Cat" : {
                         bat '''
-                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll  --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\TestATestResultB.xml --where "Category==Michelle"'''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll  --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\TestATestResultB.xml" --where "Category==Michelle"'''
                     }
                 )
                 
