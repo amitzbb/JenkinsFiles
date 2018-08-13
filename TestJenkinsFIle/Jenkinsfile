@@ -9,7 +9,7 @@ pipeline {
                 parallel (
                     "Urgent Cat" : {
                       powershell 'Copy-Item -Path D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
-                      archiveArtifacts 'images/*.*'
+                      archiveArtifacts 'Images/*.*'
                     }                 
                     
                 )
