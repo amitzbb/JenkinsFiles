@@ -1,7 +1,7 @@
 pipeline {
     agent { node { label 'AmitPC' } }
     parameters {
-       string (name: 'Images' , defaultValue :'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\' ,description: 'Paramter') 
+       string (name: 'Images' , defaultValue :'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\images' ,description: 'Paramter') 
     }
      stages {
         stage('Parallel Selnium tests running' ) {
