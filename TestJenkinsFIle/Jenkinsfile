@@ -28,11 +28,11 @@ pipeline {
                 parallel (
                     "Amit Cat" : {
                         bat '''
-                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit"'''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\TestATestResultA.xml"'''
                     } ,
                     "Michelle Cat" : {
                         bat '''
-                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Michelle"'''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Michelle --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\TestATestResultB.xml"'''
                     }
                 )
                 
@@ -42,7 +42,8 @@ pipeline {
      post {
          always {
             powershell 'Copy-Item -Path D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
-            nunit testResultsPattern: 'TestResult.xml'
+            nunit testResultsPattern: 'TestATestResultA.xml'
+            nunit testResultsPattern: 'TestATestResultB.xml'
             archiveArtifacts 'Images/*.*'
         }
          failure {
