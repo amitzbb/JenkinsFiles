@@ -16,10 +16,6 @@ pipeline {
         
      }
      post {
-         always {
-            nunit testResultsPattern: 'TestResult.xml'
-            archiveArtifacts 'Images/*.*'
-        }
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
