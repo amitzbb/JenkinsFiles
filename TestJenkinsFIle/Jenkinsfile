@@ -1,14 +1,14 @@
 pipeline {
     agent { node { label 'AmitPC' } }
+    parameters {
+       string (name: 'Images' , defaultValue :'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\' ,description: 'Paramter') 
+    }
      stages {
         stage('Parallel Selnium tests running' ) {
             steps {
                 parallel (
                     "Urgent Cat" : {
-                       archiveArtifacts '<fileset dir="D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images" includes="main/"/>'
-
-
-
+                       archiveArtifacts '%Images%/Images'
                     }                 
                     
                 )
