@@ -9,7 +9,7 @@ pipeline {
                     bat 'D:\\nuget\\nuget.exe restore "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\FoxAutomation.sln"'
                     bat '''cd "C:\\Program Files (x86)\\MSBuild\\14.0\\Bin"
                     MSBuild.exe "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\FoxAutomation.sln" /t:Clean /verbosity:minimal
-                    MSBuild.exe "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\FoxAutomation.sln" /p:Configuration=Release /p:DebugSymbols=false /p:DebugType=None /verbosity:minimal'''
+                    MSBuild.exe "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\FoxAutomation.sln" /p:Configuration=Debug '''
 
             }
         }
