@@ -4,11 +4,6 @@ pipeline {
        string (name: 'Images' , defaultValue :'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\images' ,description: 'Paramter') 
     }
      stages {
-        stage('Getting Code From P4') {
-            steps {
-            bat 'p4 sync --parallel=threads=4,batch=8,batchsize=524288,min=1,minsize=589824 //depot/Fox8/Dev/FoxTestingFrameworkDev/...#head'
-            }
-        }
         stage('Compliling Automation project'){
             steps {
                     bat 'D:\\nuget\\nuget.exe restore "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\FoxAutomation.sln"'
@@ -18,22 +13,7 @@ pipeline {
 
             }
         }
-        stage ('SeleniumTests'){
-            steps {
-                bat '''
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit"'''
-            }
-        }
-        stage('Copying ScreenShots to Jenkins Workspace') {
-            steps {
-                parallel (
-                    "Urgent Cat" : {
-                      powershell 'Copy-Item -Path D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
-                    }                 
-                    
-                )
-            }
-        }
+        
      }
      post {
          always {
