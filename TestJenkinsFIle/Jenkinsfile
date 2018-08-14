@@ -49,7 +49,7 @@ pipeline {
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'amitbl@britannica-ks.com'
+                            http://autoload.bks/Login.aspx''', subject: 'Selenium Tests On Amit VM', to: 'amitbl@britannica-ks.com'
         }
     }
 } 
