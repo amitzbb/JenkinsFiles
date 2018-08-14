@@ -9,7 +9,7 @@ pipeline {
             bat 'p4 sync --parallel=threads=4,batch=8,batchsize=524288,min=1,minsize=589824 //depot/Fox8/Dev/FoxTestingFrameworkDev/...#head'
             }
         }
-        stage('CleanImages Folders') {
+        stage('Clean Images Folders') {
             steps {
                 powershell '''Remove-Item D:\\Jenkins\\workspace\\PipelineTestArch\\Images\\*.* -Force
                               Remove-Item D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
