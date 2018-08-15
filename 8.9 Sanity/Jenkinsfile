@@ -1,29 +1,29 @@
 pipeline {
-    agent { node { label 'AmitPC' } }
+    agent { node { label 'QA-VM16' } }
      stages {
         stage('Clean Images Folders') {
             steps {
             powershell '''Remove-Item D:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                              Remove-Item D:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
+                              Remove-Item D:\\Fox8.9.8\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
             }
         }
         stage('Running Selenium tests') {
             steps {
                 bat '''
-                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "Category==Sanity"'''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\Fox8.9.8\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "Category==Sanity"'''
             }
         }
      }
      post {
          always {
-            powershell 'Copy-Item -PathD:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
+            powershell 'Copy-Item -Path D:\\Fox8.9.8\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
             nunit testResultsPattern: 'TestResult.xml'
             archiveArtifacts 'Images/*.*'
         }
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium Tests On Amit VM', to: 'amitbl@britannica-ks.com'
+                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium Tests On QA-VM16', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
         }
     }
 } 
