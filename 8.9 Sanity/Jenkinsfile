@@ -16,7 +16,7 @@ pipeline {
      }
      post {
          always {
-            powershell 'Copy-Item -Path D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
+            powershell 'Copy-Item -PathD:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
             nunit testResultsPattern: 'TestResult.xml'
             archiveArtifacts 'Images/*.*'
         }
