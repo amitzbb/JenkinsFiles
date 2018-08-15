@@ -1,0 +1,28 @@
+pipeline {
+    agent { node { label 'AmitPC' } }
+     stages {
+         stage('Clean Images Folders') {
+            steps {
+                powershell '''Remove-Item D:\\Jenkins\\workspace\\PipelineTestArch\\Images\\*.* -Force
+                              Remove-Item D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
+            }
+        }
+        stage ('SeleniumTests'){
+            steps {
+                "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "Category==Sanity"'''       
+            }
+        }
+     }
+     post {
+         always {
+            powershell 'Copy-Item -Path D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
+            nunit testResultsPattern: 'TestResult.xml'
+            archiveArtifacts 'Images/*.*'
+        }
+         failure {
+            emailext body: '''$DEFAULT_CONTENT
+                            The site can be reached at:
+                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium tests on 8.9 version failed', to: 'amitbl@britannica-ks.com'
+        }
+    }
+} 
