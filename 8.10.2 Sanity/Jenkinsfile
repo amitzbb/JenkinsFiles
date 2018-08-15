@@ -1,0 +1,29 @@
+pipeline {
+    agent { node { label 'QA-VM9' } }
+     stages {
+        stage('Clean Images Folders') {
+            steps {
+            powershell '''Remove-Item D:\\Jenkins\\workspace\\SeleniumSP2\\Images\\*.* -Force
+                              Remove-Item D:\\Selenium8102\\Fox8.10.2\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
+            }
+        }
+        stage('Running Selenium tests') {
+            steps {
+                bat '''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\Selenium8102\\Fox8.10.2\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "Category==Sanity"'''
+            }
+        }
+     }
+     post {
+         always {
+            powershell 'Copy-Item -Path D:\\Selenium8102\\Fox8.10.2\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
+            nunit testResultsPattern: 'TestResult.xml'
+            archiveArtifacts 'Images/*.*'
+        }
+         failure {
+            emailext body: '''$DEFAULT_CONTENT
+                            The site can be reached at:
+                            http://qa-fox8-b.bks/Login.aspx''', subject: 'Selenium Tests On 8.10.2', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
+        }
+    }
+} 
