@@ -3,13 +3,13 @@ pipeline {
      stages {
          stage('Clean Images Folders') {
             steps {
-                powershell '''Remove-Item D:\\Jenkins\\workspace\\PipelineTestArch\\Images\\*.* -Force
-                              Remove-Item D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
+                powershell '''Remove-Item D:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
+                              Remove-Item D:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\*.* -Force'''
             }
         }
         stage ('SeleniumTests'){
             steps {
-                "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "Category==Sanity"'''       
+                "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "Category==Sanity"'''       
             }
         }
      }
