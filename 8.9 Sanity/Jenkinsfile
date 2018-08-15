@@ -1,15 +1,16 @@
 pipeline {
     agent { node { label 'AmitPC' } }
      stages {
-         stage('Clean Images Folders') {
+        stage('Clean Images Folders') {
             steps {
-                powershell '''Remove-Item D:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                              Remove-Item D:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\*.* -Force'''
+            powershell '''Remove-Item D:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
+                              Remove-Item D:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
             }
         }
-        stage ('SeleniumTests'){
+        stage('Clean Images Folders') {
             steps {
-                "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "Category==Sanity"'''       
+                bat '''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\WorkSpace\\Releases\\Fox8.9.8\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "Category==Sanity"'''
             }
         }
      }
@@ -22,7 +23,7 @@ pipeline {
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium tests on 8.9 version failed', to: 'amitbl@britannica-ks.com'
+                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium Tests On Amit VM', to: 'amitbl@britannica-ks.com'
         }
     }
 } 
