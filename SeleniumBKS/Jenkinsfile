@@ -4,67 +4,14 @@ pipeline {
        string (name: 'Images' , defaultValue :'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\images' ,description: 'Paramter') 
     }
      stages {
-        stage('Old Engine') {
+            stage ('Compiling New Optimization Engine') {
             steps {
-               steps {
-                parallel (
-                    "Compilining Fox" : {
-                        bat 'C:\\nuget\\nuget.exe restore "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\Fox.sln"'
-                        bat '''"C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe"  "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\Fox.sln" /t:Clean /verbosity:minimal'''
-                        bat '''"C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe" "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\Fox.sln" /p:Configuration=Release /p:DebugSymbols=false /p:DebugType=None /verbosity:minimal'''
-                    } ,
-                    "NG Project" : {
-                        bat '''cd C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxNG.App npm run restore'''
-                        bat '''cd C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxNG.App npm run build'''
-                        bat 'xcopy "\\\\bks-fs\\FoxDATA$_0\\dev-pilotCI-Config\\localConfig.json" "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxNG.App\\dist\\assets" /Y/r'
-                    },
-                    "Compiling Old engine" : {
-                        bat 'C:\\nuget\\nuget.exe restore "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\OptimizationServer\\Code\\OptimizationServer.sln"'
-                        bat '"C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe" "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\OptimizationServer\\Code\\OptimizationServer.sln" /t:Clean /verbosity:minimal'
-                        bat '"C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe" "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\OptimizationServer\\Code\\OptimizationServer.sln" /p:Configuration=Release /p:DebugSymbols=false /p:DebugType=None /verbosity:minimal'
-                    },
-                    "Ionic App" : {
-                        bat '''cd C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxApp
-                                npm cache verify'''
-                        powershell '''$package = "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxApp\\package.json"
-                                      $Config = "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxApp\\config.xml"
-                                        Set-ItemProperty $package -name IsReadOnly -value $false
-                                        Set-ItemProperty $Config -name IsReadOnly -value $false '''
-                        bat '''cd C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxApp 
-                        npm install'''            
-                        bat '''cd C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxApp 
-                        npm run ionic:build'''
-                        bat '''Robocopy /mir C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Code\\FoxApp\\www\\ C:\\inetpub\\wwwroot\\FoxApp
-                                xcopy "\\\\bks-fs\\FoxDATA$_0\\dev-pilotCI-Config\\FoxApp\\customSettings.json" "C:\\inetpub\\wwwroot\\FoxApp\\assets\\custom-config" /Y/r'''
-                        bat 'C:\\Dev-CI01\\FoxNGAPI\\FoxNGAPI.exe'
-                    },
-                    "Excecuting BKS scripts" : {
-                        powershell 'Copy-Item -Path \\\\jenkins\\BKSInstaller -Destination $workspace -Recurse -Force'
-                        powershell '''Get-Date -Format g
-                                    # BKSInstaller Property Files
-                                        Remove-Item "BKSInstaller\\Installation.properties" -Force -ErrorAction SilentlyContinue
-                                        Remove-Item "BKSInstaller\\KB*" -Force -Recurse -ErrorAction SilentlyContinue
-                                        #Write-Host "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Scripts BKSInstaller -Force"
-                                        Write-Host "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Scripts BKSInstaller -Force"
-                                        write-host "Strat copying scripts to Jenkins job workspace " 
-                                        Copy-Item "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Scripts" "BKSInstaller\\KBCIBuild000\\Scripts" -Recurse -Force
-                                        Remove-Item "BKSInstaller\\KBCIBuild000\\Scripts\\BKSMonitor" -Force -Recurse -ErrorAction SilentlyContinue
-                                        Remove-Item "BKSInstaller\\KBCIBuild000\\Scripts\\DBCreation" -Force -Recurse -ErrorAction SilentlyContinue
-                                        Remove-Item "BKSInstaller\\KBCIBuild000\\Scripts\\EnterpriseEditionObjects" -Force -Recurse -ErrorAction SilentlyContinue
-                                        Get-Date -Format g'''
-                        powershell '''Get-Date -Format g
-                                        # Create Property File:
-                                        "siteName=dev-pilot.bks" | Add-Content "BKSInstaller\\Installation.properties" 
-                                        #"installDB=False" | Add-Content "BKSInstaller\\Installation.properties"
-                                        "installCode=False" | Add-Content "BKSInstaller\\Installation.properties"
-                                        "sqlUser=sa" | Add-Content "BKSInstaller\\Installation.properties"
-                                        "sqlPass=mamboo" | Add-Content "BKSInstaller\\Installation.properties"'''
-                        bat '''cd BKSInstaller
-                               BKSInstaller.exe'''
-                    }
-                )
-                
-            }
+                powershell '''$path = "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Optimization\\SchedulerEngine\\UnitTests\\bin"
+                              Get-ChildItem $Path | Where{$_.Name -Match "20"} | Remove-Item -force -Recurse'''
+                bat '''C:\\nuget\\nuget.exe restore "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Optimization\\SchedulerEngine\\SchedulerEngine.sln"
+                        C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe"  "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Optimization\\SchedulerEngine\\SchedulerEngine.sln" /t:Clean /verbosity:minimal
+                        C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe"  "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Optimization\\SchedulerEngine\\SchedulerEngine.sln" /p:Cod "nfiguration=Release /p:DebugSymbols=false /p:DebugType=None /verbosity:minimal /clp:parameters:Summary'''  
+                bat 'C:\\Dev-CI01\\NewEngine\\NewEngineConfig.exe'          
             }
         }
      }
