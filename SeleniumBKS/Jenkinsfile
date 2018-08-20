@@ -6,7 +6,7 @@ pipeline {
      stages {
             stage ('Compiling New Optimization Engine') {
             steps {
-                echo 'Error: oh no'
+                echo 'Good'
             }
         }
      }
