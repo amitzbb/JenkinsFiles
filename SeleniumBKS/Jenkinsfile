@@ -12,7 +12,7 @@ pipeline {
      }
      post {
          always {
-            junit 'test-reports.xml'
+            junit 'D:\\Jenkins\\workspace\\Selenium Test\\test-reports.xml'
         }
          failure {
             emailext body: '''$DEFAULT_CONTENT
