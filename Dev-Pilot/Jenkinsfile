@@ -120,6 +120,8 @@ pipeline {
                             Start-Service -Name "Fox Optimization: Process Orchestrator Service"
                             Start-Service -Name "Fox Optimization: Scheduler Engine Service"
                             Start-Service -Name "FoxImportTaskQueueListenerActivator"'''
+              bat 'iisreset /restart'
+
             }
         }
          stage('Parallel UT running') {
