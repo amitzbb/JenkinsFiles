@@ -1,23 +1,23 @@
 pipeline {
-    agent { node { label 'Dev-CI01' } }
+    agent { node { label 'AmitPC' } }
     parameters {
        string (name: 'Images' , defaultValue :'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\images' ,description: 'Paramter') 
     }
      stages {
-            stage ('Compiling New Optimization Engine') {
+        stage('Getting Code From P4') {
             steps {
-                echo 'Error: oh no'
+            echo 'Test'
             }
         }
      }
      post {
          always {
-            step([$class: 'LogParserPublisher', failBuildOnError: true, projectRulePath: 'LogParser\\LogParserRules.txt', useProjectRule: true])
+            junit 'junit-results.xml'
         }
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://dev-pilot.bks/Login.aspx''', subject: 'Dev-Pilot Unit Tests status', to: 'bksQA@britannica-ks.com'
+                            http://autoload.bks/Login.aspx''', subject: 'Selenium Tests On Amit VM', to: 'amitbl@britannica-ks.com'
         }
     }
 } 
