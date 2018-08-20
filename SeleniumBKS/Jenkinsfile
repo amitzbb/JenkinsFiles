@@ -1,27 +1,35 @@
 pipeline {
-    agent { node { label 'AmitPC' } }
+    agent { node { label 'Dev-CI01' } }
+    parameters {
+       string (name: 'Images' , defaultValue :'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\images' ,description: 'Paramter') 
+    }
      stages {
-        stage('Parallel Selnium tests running' ) {
+        stage('BksInstaller') {
             steps {
-                parallel (
-                    "Urgent Cat" : {
-                        bat '''@echo off
-                     @echo %date% %time%
-                    @echo Fox UT
-                    @echo ======
-                    "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --where "Category==Amit"'''
-                    }                 
-                    
-                )
+                powershell 'Copy-Item -Path \\\\jenkins\\BKSInstaller -Destination $workspace -Recurse -Force'
+                        powershell '''Get-Date -Format g
+                                    # BKSInstaller Property Files
+                                        Remove-Item "BKSInstaller\\Installation.properties" -Force -ErrorAction SilentlyContinue
+                                        Remove-Item "BKSInstaller\\KB*" -Force -Recurse -ErrorAction SilentlyContinue
+                                        #Write-Host "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Scripts BKSInstaller -Force"
+                                        Write-Host "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Scripts BKSInstaller -Force"
+                                        write-host "Strat copying scripts to Jenkins job workspace " 
+                                        Copy-Item "C:\\Users\\master\\Perforce\\dba_DEV-CI01_182\\Fox8\\Dev\\Scripts" "BKSInstaller\\KBCIBuild000\\Scripts" -Recurse -Force
+                                        Remove-Item "BKSInstaller\\KBCIBuild000\\Scripts\\BKSMonitor" -Force -Recurse -ErrorAction SilentlyContinue
+                                        Remove-Item "BKSInstaller\\KBCIBuild000\\Scripts\\DBCreation" -Force -Recurse -ErrorAction SilentlyContinue
+                                        Remove-Item "BKSInstaller\\KBCIBuild000\\Scripts\\EnterpriseEditionObjects" -Force -Recurse -ErrorAction SilentlyContinue
+                                        Get-Date -Format g'''
+                        powershell '''Get-Date -Format g
+                                        # Create Property File:
+                                        "siteName=dev-pilot.bks" | Add-Content "BKSInstaller\\Installation.properties" 
+                                        #"installDB=False" | Add-Content "BKSInstaller\\Installation.properties"
+                                        "installCode=False" | Add-Content "BKSInstaller\\Installation.properties"
+                                        "sqlUser=sa" | Add-Content "BKSInstaller\\Installation.properties"
+                                        "sqlPass=mamboo" | Add-Content "BKSInstaller\\Installation.properties"'''
             }
         }
      }
      post {
-        always {
-            nunit testResultsPattern: 'TestResult.xml'
-            archiveArtifacts artifacts: 'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\Images\\*.*', fingerprint: true
-
-        }
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
