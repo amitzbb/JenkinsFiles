@@ -6,7 +6,8 @@ pipeline {
      stages {
         stage('Angular NPM') {
             steps {
-             echo 'Nunit test'
+             bat '''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\A" --where "Category==Amit" D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll  --work:"D:\\Jenkins\\workspace\\PipelineTestArch\\B" --where "Category==Michelle"'''
             }
         }
      }
