@@ -12,7 +12,7 @@ pipeline {
      }
      post {
          always {
-             nunit testResultsPattern: 'A/TestResult.xml , B/TestResult.xml'
+             nunit testResultsPattern: 'A/TestResult.xml B/TestResult.xml'
          }
          failure {
             emailext body: '''$DEFAULT_CONTENT
