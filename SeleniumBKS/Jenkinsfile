@@ -1,5 +1,5 @@
 pipeline {
-    agent { node { label 'Dev-CI01' } }
+    agent { node { label 'AmitPC' } }
     parameters {
        string (name: 'Images' , defaultValue :'D:\\WorkSpace\\Fox8\\Dev\\FoxTestingFrameworkDev\\images' ,description: 'Paramter') 
     }
