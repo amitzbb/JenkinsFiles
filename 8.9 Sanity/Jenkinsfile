@@ -1,5 +1,8 @@
 pipeline {
     agent { node { label 'QA-VM16' } }
+    parameters {
+       string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
+    }
      stages {
         stage('Clean Images Folders') {
             steps {
@@ -9,8 +12,7 @@ pipeline {
         }
         stage('Running Selenium tests') {
             steps {
-                bat '''
-                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\Fox8.9.8\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "Category==Sanity"'''
+                bat 'C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\Fox8.9.8\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "$Filters"'
             }
         }
      }
