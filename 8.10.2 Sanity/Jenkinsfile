@@ -26,7 +26,7 @@ pipeline {
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://qa-fox8-b.bks/Login.aspx''', subject: 'Selenium Tests On 8.10.3', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
+                            http://qa-fox8-b.bks/Login.aspx''', subject: 'Selenium sanity Tests On 8.10.3 - relevant VM is QA-VM9', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
         }
     }
 } 
