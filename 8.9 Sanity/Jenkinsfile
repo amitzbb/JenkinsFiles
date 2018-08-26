@@ -7,22 +7,12 @@ pipeline {
      stages {
         stage('Clean Images Folders') {
             steps {
-            powershell '''Remove-Item D:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                              Remove-Item "D:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*" -Force'''
-            }
-        }
-        stage('Running Selenium tests') {
-            steps {
-                bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\%SPnumber%\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "%Filters%"'
+            powershell ''' Remove-Item "D:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*" -Force'''
+                              
             }
         }
      }
      post {
-         always {
-            powershell 'Copy-Item -Path D:\\$SPnumber\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
-            nunit testResultsPattern: 'TestResult.xml'
-            archiveArtifacts 'Images/*.*'
-        }
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
