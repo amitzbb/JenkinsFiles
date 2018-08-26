@@ -4,7 +4,7 @@ pipeline {
         stage('Clean Images Folders') {
             steps {
              
-             powershell 'write-host "Removeing Folder D:\\PerforceIntegration\\Releases\\$SPnumber"' 
+             powershell 'write-host "Removeing Folder D:\\PerforceIntegration\\Releases\\$env:SPnumber"' 
             }
         }
      }
