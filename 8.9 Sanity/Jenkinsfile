@@ -26,7 +26,7 @@ pipeline {
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On $SPnumber - relevant VM is QA-VM16', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
+                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On $SPnumber - relevant VM is QA-VM16', to: 'amitbl@britannica-ks.com'
         }
     }
 } 
