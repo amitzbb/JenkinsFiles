@@ -1,13 +1,14 @@
 pipeline {
     agent { node { label 'QA-VM9' } }
     parameters {
+       string (name: 'SPnumber' , defaultValue :'Fox8.9.9' ,description: 'Which SP whould you like to test ?')  
        string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
     }
      stages {
         stage('Clean Images Folders') {
             steps {
-            powershell '''Remove-Item D:\\Jenkins\\workspace\\SeleniumSP2\\Images\\*.* -Force
-                              Remove-Item D:\\Selenium8102\\Fox8.10.2\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
+            powershell """ Remove-Item D:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
+                              Remove-Item "D:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*" -Force """
             }
         }
         stage('Running Selenium tests') {
@@ -19,7 +20,7 @@ pipeline {
      }
      post {
          always {
-            powershell 'Copy-Item -Path D:\\Selenium8102\\Fox8.10.2\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
+            powershell """ Copy-Item -Path D:\\$SPnumber\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force """
             nunit testResultsPattern: 'TestResult.xml'
             archiveArtifacts 'Images/*.*'
         }
