@@ -14,7 +14,7 @@ pipeline {
         stage('Running Selenium tests') {
             steps {
                 bat '''
-                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\Selenium8102\\Fox8.10.2\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "%Filters%"'''
+                         "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\$SPnumber\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "%Filters%"'''
             }
         }
      }
