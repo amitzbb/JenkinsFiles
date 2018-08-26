@@ -3,7 +3,7 @@ pipeline {
      stages {
         stage('Clean Images Folders') {
             steps {
-             powershell '''Remove-Item D:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force '''     
+             powershell '''write-host $SPnumber'''     
             }
         }
      }
