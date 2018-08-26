@@ -1,7 +1,7 @@
 pipeline {
     agent { node { label 'QA-VM16' } }
     parameters {
-       string (name: 'SPnumber' , defaultValue :'Fox8.9.' ,description: 'Which SP do you want to test')  
+       string (name: 'SPnumber' , defaultValue :'Fox8.9.9' ,description: 'Which SP whould you like to test ?')  
        string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
     }
      stages {
@@ -26,7 +26,7 @@ pipeline {
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On 8.9 - relevant VM is QA-VM16', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
+                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On $SPnumber - relevant VM is QA-VM16', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
         }
     }
 } 
