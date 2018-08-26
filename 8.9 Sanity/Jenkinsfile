@@ -1,13 +1,13 @@
 pipeline {
     agent { node { label 'QA-VM16' } }
     parameters {
-       string (name: 'SPnumber' , defaultValue :'Fox8.9.9' ,description: 'Which SP whould you like to test ?')  
+       string (name: 'SPnumber' , defaultValue :'Fox8.9.8' ,description: 'Which SP whould you like to test ?')  
        string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
     }
      stages {
         stage('Clean Images Folders') {
             steps {
-            powershell ''' Remove-Item "D:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*" -Force'''
+            powershell ''' Remove-Item D:\\$SPnumber$\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
                               
             }
         }
