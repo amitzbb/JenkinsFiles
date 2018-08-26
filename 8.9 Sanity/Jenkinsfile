@@ -1,31 +1,32 @@
 pipeline {
     agent { node { label 'QA-VM16' } }
     parameters {
+       string (name: 'SPnumber' , defaultValue :'8.9.' ,description: 'Which SP do you want to test')  
        string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
     }
      stages {
         stage('Clean Images Folders') {
             steps {
             powershell '''Remove-Item D:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                              Remove-Item D:\\Fox8.9.8\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
+                              Remove-Item D:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.* -Force'''
             }
         }
         stage('Running Selenium tests') {
             steps {
-                bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\Fox8.9.8\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "%Filters%"'
+                bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\%SPnumber%\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "%Filters%"'
             }
         }
      }
      post {
          always {
-            powershell 'Copy-Item -Path D:\\Fox8.9.8\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
+            powershell 'Copy-Item -Path D:\\$SPnumber\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force'
             nunit testResultsPattern: 'TestResult.xml'
             archiveArtifacts 'Images/*.*'
         }
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On 8.9.9. - relevant VM is QA-VM16', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
+                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On 8.9 - relevant VM is QA-VM16', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
         }
     }
 } 
