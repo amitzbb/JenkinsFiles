@@ -3,7 +3,7 @@ pipeline {
      stages {
         stage('Clean Images Folders') {
             steps {
-             powershell '''write-host $SPnumber'''     
+             powershell '''write-host  amit \$SPnumber'''     
             }
         }
      }
