@@ -7,8 +7,10 @@ pipeline {
      stages {
         stage('Clean Images Folders') {
             steps {
-            powershell ''' Remove-Item D:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.* -Force
-            write-host $SPnumber '''
+            powershell ''' 
+            write-host $SPnumber
+            Remove-Item D:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.* -Force
+             '''
                               
             }
         }
