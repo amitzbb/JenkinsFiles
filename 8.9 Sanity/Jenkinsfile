@@ -1,7 +1,7 @@
 pipeline {
     agent { node { label 'QA-VM16' } }
     parameters {
-       string (name: 'SPnumber' , defaultValue :'8.9.' ,description: 'Which SP do you want to test')  
+       string (name: 'SPnumber' , defaultValue :'Fox8.9.' ,description: 'Which SP do you want to test')  
        string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
     }
      stages {
