@@ -3,8 +3,10 @@ pipeline {
      stages {
         stage('Clean Images Folders') {
             steps {
+             withEnv(['$SPnumber =Fox8.9.8']) {
+    powershell 'write-host "Removeing Folder D:\\PerforceIntegration\\Releases\\$SPnumber"' 
+    }
              
-             powershell 'write-host "Removeing Folder D:\\PerforceIntegration\\Releases\\$env:SPnumber"' 
             }
         }
      }
