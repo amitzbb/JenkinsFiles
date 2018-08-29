@@ -1,14 +1,30 @@
 pipeline {
-    agent { node { label 'dev-win10' } }
+    agent { node { label 'Dev-CI01' } }
     parameters {
        string (name: 'SPnumber' , defaultValue :'Fox8.9.9' ,description: 'Which SP whould you like to test ?')  
        string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
     }
      stages {
+        stage('Getting Code From P4') {
+            steps {
+            bat '''@echo p4 - sync
+                    @echo =========
+                    p4.exe set P4CLIENT=TC_p4_DEV_WIN10_FoxAutomation_add67edfa2d0f0d1
+                    p4 sync -f //depot/Releases/%SPnumber%/FoxTestingFrameworkDev/...#head'''
+            }
+        }
         stage('Clean Images Folders') {
             steps {
             powershell """ Remove-Item C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
                               Remove-Item "C:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*" -Force """
+            }
+        }
+        stage('Compliling Automation project'){
+            steps {
+                    bat 'C:\\nuget\\nuget.exe restore "c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\%SPnumber%\\FoxTestingFrameworkDev\\FoxAutomation.sln"'
+                    bat '''"C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe"  "c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\%SPnumber%\\FoxTestingFrameworkDev\\FoxAutomation.sln" /t:Clean /verbosity:minimal'''
+                    bat '''"C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe"  "c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\%SPnumber%\\FoxTestingFrameworkDev\\FoxAutomation.sln" /p:Configuration=Debug'''
+
             }
         }
         stage('Running Selenium tests') {
