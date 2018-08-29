@@ -21,9 +21,9 @@ pipeline {
                             } else {
                                 write-host "Path found removing it from Workspace"
                                 Remove-Item C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                            } """
+                            } 
 
-            powershell """   if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images\\  -PathType Container)) { 
+               if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images\\  -PathType Container)) { 
                                 write-host "Path not found - nothing to remove"
                             } else {
                                 write-host "Path found removing it from Workspace"
@@ -59,7 +59,7 @@ pipeline {
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On $SPnumber - relevant VM is dev-win10', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
+                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On $SPnumber - relevant VM is dev-win10', to: 'amitbl@britannica-ks.com'
         }
     }
 } 
