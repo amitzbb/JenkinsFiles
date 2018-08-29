@@ -37,7 +37,7 @@ pipeline {
          always {
             powershell """ Copy-Item -Path D:\\$SPnumber\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force """
             nunit testResultsPattern: 'TestResult.xml'
-            archiveArtifacts allowEmptyArchive: true, artifacts: 'Images/*.*'
+            archiveArtifacts 'Images/*.*'
         }
          failure {
             emailext body: '''$DEFAULT_CONTENT
