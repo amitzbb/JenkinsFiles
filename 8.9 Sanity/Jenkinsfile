@@ -9,6 +9,7 @@ pipeline {
             steps {
             bat '''@echo p4 - sync
                     @echo =========
+                    P4USER=DBA
                     p4.exe set P4CLIENT=TC_p4_DEV_WIN10_FoxAutomation_add67edfa2d0f0d1
                     p4 sync -f //depot/Releases/%SPnumber%/FoxTestingFrameworkDev/...#head'''
             }
