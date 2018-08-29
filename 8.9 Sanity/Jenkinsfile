@@ -1,5 +1,5 @@
 pipeline {
-    agent { node { label 'QA-VM16' } }
+    agent { node { label 'dev-win10' } }
     parameters {
        string (name: 'SPnumber' , defaultValue :'Fox8.9.9' ,description: 'Which SP whould you like to test ?')  
        string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
@@ -7,13 +7,13 @@ pipeline {
      stages {
         stage('Clean Images Folders') {
             steps {
-            powershell """ Remove-Item D:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                              Remove-Item "D:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*" -Force """
+            powershell """ Remove-Item C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
+                              Remove-Item "C:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*" -Force """
             }
         }
         stage('Running Selenium tests') {
             steps {
-                bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "D:\\%SPnumber%\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "%Filters%"'
+                bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  "C:\\%SPnumber%\\FoxTestingFrameworkDev\\BusinessScenarios\\bin\\Debug\\BusinessScenarios.dll" --where "%Filters%"'
             }
         }
      }
@@ -26,7 +26,7 @@ pipeline {
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On $SPnumber - relevant VM is QA-VM16', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
+                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On $SPnumber - relevant VM is dev-win10', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
         }
     }
 } 
