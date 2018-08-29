@@ -17,7 +17,7 @@ pipeline {
         stage('Clean Images Folders') {
             steps {
             powershell """ Remove-Item C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                              Remove-Item "C:\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*" -Force """
+                              Remove-Item "c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\%SPnumber%\\FoxTestingFrameworkDev\\Images\\*.*" -Force """
             }
         }
         stage('Compliling Automation project'){
