@@ -21,9 +21,9 @@ pipeline {
                             } else {
                                 write-host "Path found removing it from Workspace"
                                 Remove-Item C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                            }
+                            } """
 
-                            if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images\\  -PathType Container)) { 
+            powershell """   if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images\\  -PathType Container)) { 
                                 write-host "Path not found - nothing to remove"
                             } else {
                                 write-host "Path found removing it from Workspace"
@@ -47,7 +47,7 @@ pipeline {
      }
      post {
          always {
-            powershell """ if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\mages  -PathType Container)) { 
+            powershell """ if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images  -PathType Container)) { 
                                 write-host "Path not found - nothing to remove"
                             } else {
                                 write-host "Path found Copying image folder"
