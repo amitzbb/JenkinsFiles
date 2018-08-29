@@ -16,8 +16,19 @@ pipeline {
         }
         stage('Clean Images Folders') {
             steps {
-            powershell """ Remove-Item C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                              Remove-Item "c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\%SPnumber%\\FoxTestingFrameworkDev\\Images\\*.*" -Force """
+            powershell """ if(!(Test-Path C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\  -PathType Container)) { 
+                                write-host "Path not found - nothing to remove"
+                            } else {
+                                write-host "Path found removing it from Workspace"
+                                Remove-Item C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
+                            }
+
+                            if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images\\  -PathType Container)) { 
+                                write-host "Path not found - nothing to remove"
+                            } else {
+                                write-host "Path found removing it from Workspace"
+                                Remove-Item -Path "c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*  -Force
+                            } """
             }
         }
         stage('Compliling Automation project'){
@@ -36,7 +47,12 @@ pipeline {
      }
      post {
          always {
-            powershell """ Copy-Item -Path D:\\$SPnumber\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force """
+            powershell """ if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\mages  -PathType Container)) { 
+                                write-host "Path not found - nothing to remove"
+                            } else {
+                                write-host "Path found Copying image folder"
+                                Copy-Item -Path D:\\$SPnumber\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force
+                            } """
             nunit testResultsPattern: 'TestResult.xml'
             archiveArtifacts 'Images/*.*'
         }
