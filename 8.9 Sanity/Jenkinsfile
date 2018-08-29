@@ -1,5 +1,5 @@
 pipeline {
-    agent { node { label 'qa-vm9' } }
+    agent { node { label 'QA-VM9' } }
     parameters {
        string (name: 'SPnumber' , defaultValue :'Fox8.9.9' ,description: 'Which SP whould you like to test ?')  
        string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
