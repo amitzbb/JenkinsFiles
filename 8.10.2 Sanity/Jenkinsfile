@@ -1,5 +1,5 @@
 pipeline {
-    agent { node { label 'QA-VM9' } }
+    agent { node { label 'QA-VM16' } }
     parameters {
        string (name: 'SPnumber' , defaultValue :'Fox8.10.3' ,description: 'Which SP whould you like to test ?')  
        string (name: 'Filters' , defaultValue :'Category==Sanity' ,description: 'Filter Which set of test whould you like to run') 
@@ -22,7 +22,7 @@ pipeline {
          always {
             powershell """ Copy-Item -Path D:\\$SPnumber\\FoxTestingFrameworkDev\\Images -Destination $WORKSPACE -Recurse -Force """
             nunit testResultsPattern: 'TestResult.xml'
-            archiveArtifacts 'Images/*.*'
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'Images/*.*'
         }
          failure {
             emailext body: '''$DEFAULT_CONTENT
