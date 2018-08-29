@@ -16,19 +16,21 @@ pipeline {
         }
         stage('Clean Images Folders') {
             steps {
-            powershell """ if(!(Test-Path C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\  -PathType Container)) { 
-                                write-host "Path not found - nothing to remove"
+            powershell '''if(!(Test-Path C:\\Jenkins\\workspace\\SeleniumSP1\\Images  -PathType Container)) { 
+                                write-host "Path not found"
                             } else {
-                                write-host "Path found removing it from Workspace"
-                                Remove-Item C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.* -Force
-                            } 
+                                write-host "Path found removing it"
+                                Remove-Item -Path "C:\\Jenkins\\workspace\\SeleniumSP1\\Images\\*.*" -Recurse -Force
+                            }'''
 
-               if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images\\  -PathType Container)) { 
-                                write-host "Path not found - nothing to remove"
+
+               powershell """if(!(Test-Path c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images  -PathType Container)) { 
+                                write-host "Path not found"
                             } else {
-                                write-host "Path found removing it from Workspace"
-                                Remove-Item -Path "c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*  -Force
-                            } """
+                                write-host "Path found removing it"
+                                Remove-Item -Path "c:\\TeamCity\\buildAgent\\work\\FoxAutomation\\Releases\\$SPnumber\\FoxTestingFrameworkDev\\Images\\*.*" -Recurse -Force
+                            }"""
+
             }
         }
         stage('Compliling Automation project'){
@@ -59,7 +61,7 @@ pipeline {
          failure {
             emailext body: '''$DEFAULT_CONTENT
                             The site can be reached at:
-                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On $SPnumber - relevant VM is dev-win10', to: 'amitbl@britannica-ks.com'
+                            http://qa-fox8-a.bks/Login.aspx''', subject: 'Selenium sanity Tests On $SPnumber - relevant VM is dev-win10', to: 'amitbl@britannica-ks.com,innar@britannica-ks.com,yardenr@britannica-ks.com'
         }
     }
 } 
